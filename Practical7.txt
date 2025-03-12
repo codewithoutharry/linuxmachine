@@ -1,0 +1,39 @@
+R1
+license boot module c1900 technology-package securityk9
+copy run start
+reload
+
+show version
+mkdir ipsdir
+configure terminal
+ip ips config location flash:ipsdir
+ip ips name iosips
+ip ips notify log
+clock set 10:20:00 13 march 2025
+service timestamps log datetime msec
+logging host 192.168.1.50
+ip ips signature-category
+category all
+retired true
+exit
+category ios_ips basic
+retired false
+exit
+exit
+interface GigabitEthernet0/1
+ ip ips iosips out
+exit
+
+ip ips signature-definition
+signature 2004 0
+status
+retired false
+enabled true
+exit
+engine
+event-action produce-alert
+event-action deny-packet-inline
+exit
+exit
+exit
+(Ping rom PC-C to PC-A should fail, Ping from PC-A to PC-C should be successful, view the syslog server)

@@ -1,0 +1,15 @@
+R1
+access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp
+access-list 100 permit icmp 172.22.34.64 0.0.0.31 host 172.22.34.62
+interface GigabitEthernet0/0
+ip access-group 100 in
+exit
+(Ping from PC1 to Server should be successful and ping from PC1 to PC2 should fail, FTP login from PC1 to Server should be successful)
+
+ip access-list extended HTTP_ONLY
+permit tcp 172.22.34.96 0.0.0.15 host 172.22.34.62 eq www
+permit icmp 172.22.34.96 0.0.0.15 host 172.22.34.62
+interface GigabitEthernet0/1
+ip access-group HTTP_ONLY in
+exit
+(Ping from PC2 to Server should be Successful, FTP from PC2 to Server should fail, Http connection from PC2 to Server should be Successful)

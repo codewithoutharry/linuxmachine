@@ -1,0 +1,41 @@
+R1
+
+R2
+username Admin secret Adminpa55
+ip domain-name ccnasecurity.com
+crypto key generate rsa
+line vty 0 4
+login local
+transport input ssh
+exit
+
+R3
+license boot module c1900 technology-package securityk9
+copy run start
+reload
+show version
+zone security IN-ZONE
+exit
+zone security OUT-ZONE
+exit
+
+access-list 101 permit ip 192.168.3.0 0.0.0.255 any
+class-map type inspect match-all IN-NET-CLASS-MAP
+match access-group 101
+exit
+
+policy-map type inspect IN-2-OUT-PMAP
+class type inspect IN-NET-CLASS-MAP
+exit
+exit
+
+zone-pair security IN-2-OUT-ZPAIR source IN-ZONE destination OUT-ZONE
+service-policy type inspect IN-2-OUT-PMAP
+exit
+interface GigabitEthernet0/1
+zone-member security IN-ZONE
+exit
+interface Serial0/0/1
+zone-member security OUT-ZONE
+exit
+(Ping from PC-C to PC-A should be successful, Ping from PC-A to PC-C should fail, SSH session & Http connection from PC-C to server should be successful, use [show policy-map type inspect zone-pair sessions] while sessions are running)

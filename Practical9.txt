@@ -1,0 +1,109 @@
+R1,Central,SW1,SW2,SWA,SWB
+enable secret enpa55
+line console 0
+password conpa55
+login
+exit
+ip domain-name ccnasecurity.com
+username admin secret adminpa55
+line vty 0 4
+login local
+exit
+crypto key generate rsa modulus 1024
+show vlan brief
+
+Central,SW1,SW2,SWA,SWB
+vlan 5
+exit
+vlan 10
+exit
+vlan 15
+exit
+exit
+show vlan brief
+
+SWA
+interface FastEthernet0/2
+switchport mode access
+switchport access vlan 10
+exit
+interface FastEthernet0/3
+switchport mode access
+switchport access vlan 10
+exit
+interface FastEthernet0/4
+switchport mode access
+switchport access vlan 5
+exit
+exit
+show vlan brief
+
+config t
+interface FastEthernet0/24
+switchport mode trunk
+switchport trunk native vlan 15
+
+
+SWB
+interface FastEthernet0/1
+switchport mode access
+switchport access vlan 5
+exit
+interface FastEthernet0/2
+switchport mode access
+switchport access vlan 5
+exit
+interface FastEthernet0/3
+switchport mode access
+switchport access vlan 5
+exit
+interface FastEthernet0/4
+switchport mode access
+switchport access vlan 10
+exit
+exit
+show vlan brief
+
+config t
+interface FastEthernet0/24
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+
+
+SW1
+interface FastEthernet0/24
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+interface GigabitEthernet0/1
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+
+SW2
+interface FastEthernet0/24
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+interface GigabitEthernet0/2
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+
+Central
+interface GigabitEthernet0/1
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+interface GigabitEthernet0/2
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+interface FastEthernet0/1
+switchport mode trunk
+switchport trunk native vlan 15
+exit
+
+Central,SW1,SW2,SWA,SWB
+show int trunk

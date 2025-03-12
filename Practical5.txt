@@ -1,0 +1,19 @@
+R1
+ipv6 access-list BLOCK_HTTP
+deny tcp any host 2001:DB8:1:30::30 eq www
+deny tcp any host 2001:DB8:1:30::30 eq 443
+permit ipv6 any any
+interface GigabitEthernet0/1
+ipv6 traffic-filter BLOCK_HTTP in
+exit
+(Make http & https connection from PC1 to Server and website should appear, Make http & https connection from PC2 to server and website should be blocked)
+
+R2
+
+R3
+ipv6 access-list BLOCK_ICMP
+deny icmp any any
+permit ipv6 any any
+interface GigabitEthernet0/0
+ipv6 traffic-filter BLOCK_ICMP out
+(Ping from PC2 & PC1 to server should fail, http & https connection from PC1 should be successful)

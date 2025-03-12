@@ -1,0 +1,34 @@
+R1
+username Admin1 secret Admin1pa55
+aaa new-model
+aaa authentication login default local
+line console 0
+login authentication default
+
+ip domain-name ccnasecurity.com
+crypto key generate rsa modulus 1024
+aaa authentication login sshlogin local
+line vty 0 4
+login authentication sshlogin
+transport input ssh
+exit
+
+R2
+username Admin2 secret Admin2pa55
+tacacs-server host 192.168.2.2
+tacacs-server key tacacspa55
+aaa new-model
+aaa authentication login tacacslogin tacacs+ local
+line console 0
+login authentication tacacslogin
+exit
+
+R3
+username Admin3 secret Admin3pa55
+radius-server host 
+radius-server key radiuspa55
+aaa new-model
+aaa authenticaion login radiuslogin group radius local
+line console 0
+login authentication radiuslogin
+exit

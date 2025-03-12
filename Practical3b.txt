@@ -1,0 +1,33 @@
+RTA
+access-list 199 permit tcp 10.101.117.32 0.0.0.15 10.101.117.0 0.0.0.31 eq 22
+access-list 199 permit icmp any any
+interface GigabitEthernet 0/2
+ip access-group 199 out
+(Ping from PC-B to PC-A & SWC should be successful, telnet from PC-B to SWC should be successful, telnet from PC-A to SWC should fail)
+
+SWA
+ip domain-name example.com
+crypto key generate rsa modulus 1024
+username Admin privilege 15 secret Adminpa55
+line vty 0 4
+transport input ssh
+login local
+exit
+
+SWB
+ip domain-name example.com
+crypto key generate rsa modulus 1024
+username Admin privilege 15 secret Adminpa55
+line vty 0 4
+transport input ssh
+login local
+exit
+
+SWC
+ip domain-name example.com
+crypto key generate rsa modulus 1024
+username Admin privilege 15 secret Adminpa55
+line vty 0 4
+transport input ssh
+login local
+exit
