@@ -9,7 +9,8 @@ username admin secret adminpa55
 line vty 0 4
 login local
 exit
-crypto key generate rsa modulus 1024
+crypto key generate rsa 
+1024
 show vlan brief
 
 Central,SW1,SW2,SWA,SWB
