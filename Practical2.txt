@@ -6,7 +6,8 @@ line console 0
 login authentication default
 
 ip domain-name ccnasecurity.com
-crypto key generate rsa modulus 1024
+crypto key generate rsa 
+1024
 aaa authentication login sshlogin local
 line vty 0 4
 login authentication sshlogin
