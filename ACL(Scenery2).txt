@@ -7,7 +7,8 @@ ip access-group 199 out
 
 SWA
 ip domain-name example.com
-crypto key generate rsa modulus 1024
+crypto key generate rsa 
+1024
 username Admin privilege 15 secret Adminpa55
 line vty 0 4
 transport input ssh
@@ -16,7 +17,8 @@ exit
 
 SWB
 ip domain-name example.com
-crypto key generate rsa modulus 1024
+crypto key generate rsa 
+1024
 username Admin privilege 15 secret Adminpa55
 line vty 0 4
 transport input ssh
@@ -25,7 +27,8 @@ exit
 
 SWC
 ip domain-name example.com
-crypto key generate rsa modulus 1024
+crypto key generate rsa 
+1024
 username Admin privilege 15 secret Adminpa55
 line vty 0 4
 transport input ssh
